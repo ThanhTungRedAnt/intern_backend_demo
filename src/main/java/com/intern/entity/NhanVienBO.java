@@ -1,26 +1,49 @@
-package com.intern.dto;
+package com.intern.entity;
 
+import com.intern.dto.NhanVienDTO;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
-public class NhanVienDTO {
+@Entity
+@Table(name = "nhanvien")
+@SqlResultSetMapping(
+        name = "emp_not_sales_mapping",
+        classes = {
+                @ConstructorResult(
+                        targetClass = NhanVienDTO.class,
+                        columns = {
+                                @ColumnResult(name = "MANHANVIEN", type = String.class),
+                                @ColumnResult(name = "HO", type = String.class),
+                                @ColumnResult(name = "TEN", type = String.class),
+                        }
+                )
+        }
+)
+public class NhanVienBO {
+    @Id
+    @Column(name = "MANHANVIEN")
     private String maNhanVien;
+    @Column(name = "HO")
     private String ho;
+    @Column(name = "TEN")
     private String ten;
+    @Column(name = "NGAYSINH")
     private Date ngaySinh;
+    @Column(name = "NGAYLAMVIEC")
     private Date ngayLamViec;
+    @Column(name = "DIACHI")
     private String diaChi;
+    @Column(name = "DIENTHOAI")
     private String dienThoai;
+    @Column(name = "LUONGCOBAN")
     private BigDecimal luongCoBan;
+    @Column(name = "PHUCAP")
     private BigDecimal phuCap;
 
-    public NhanVienDTO() {
-    }
-
-    public NhanVienDTO(String maNhanVien, String ho, String ten) {
-        this.maNhanVien = maNhanVien;
-        this.ho = ho;
-        this.ten = ten;
+    public NhanVienBO() {
     }
 
     public String getMaNhanVien() {
@@ -93,20 +116,5 @@ public class NhanVienDTO {
 
     public void setPhuCap(BigDecimal phuCap) {
         this.phuCap = phuCap;
-    }
-
-    @Override
-    public String toString() {
-        return "NhanVienDTO{" +
-                "maNhanVien='" + maNhanVien + '\'' +
-                ", ho='" + ho + '\'' +
-                ", ten='" + ten + '\'' +
-                ", ngaySinh=" + ngaySinh +
-                ", ngayLamViec=" + ngayLamViec +
-                ", diaChi='" + diaChi + '\'' +
-                ", dienThoai='" + dienThoai + '\'' +
-                ", luongCoBan=" + luongCoBan +
-                ", phuCap=" + phuCap +
-                '}';
     }
 }
